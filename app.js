@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const teamMembers = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -54,33 +55,64 @@ inquirer
   });
 
 function addEngineer() {
-  inquirer.prompt([
-    {
-      name: "github",
-      type: "input",
-      message: "What is your github?",
-    },
-  ]);
+  inquirer
+    .prompt([
+      {
+        name: "github",
+        type: "input",
+        message: "What is your github?",
+      },
+    ])
+    .then(function (res) {
+      var intern = new Engineer(res.Name, res.Id, res.Email, res.github);
+      teamMembers.push(intern);
+      console.log(res);
+      initialPrompt();
+    });
 }
 
 function addManager() {
-  inquirer.prompt([
-    {
-      name: "officeNum",
-      type: "input",
-      message: "What is your office number?",
-    },
-  ]);
+  inquirer
+    .prompt([
+      {
+        name: "officeNum",
+        type: "input",
+        message: "What is your office number?",
+      },
+    ])
+    .then(function (res) {
+      var intern = new Manager(res.Name, res.Id, res.Email, res.officeNum);
+      teamMembers.push(intern);
+      console.log(res);
+      initialPrompt();
+    });
 }
 
 function addIntern() {
-  inquirer.prompt([
-    {
-      name: "school",
-      type: "input",
-      message: "What school do you go to?",
-    },
-  ]);
+  inquirer
+    .prompt([
+      {
+        name: "school",
+        type: "input",
+        message: "What school do you go to?",
+      },
+    ])
+    .then(function (res) {
+      var intern = new Intern(res.Name, res.Id, res.Email, res.school);
+      teamMembers.push(intern);
+      console.log(res);
+      initialPrompt();
+    });
+}
+
+function exitApp() {
+  var page = render(teamMembers);
+  fs.writeFile(outputPath, page, (err) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log("Success!");
+  });
 }
 
 // After the user has input all employees desired, call the `render` function (required
