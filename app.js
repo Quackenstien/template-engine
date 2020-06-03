@@ -14,45 +14,51 @@ const teamMembers = [];
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 // function render()
-inquirer
-  .prompt([
-    {
-      name: "Name",
-      type: "input",
-      message: "What is your employees name?",
-    },
-    {
-      name: "Id",
-      type: "input",
-      message: "What is your employees id?",
-    },
-    {
-      name: "Email",
-      type: "input",
-      message: "What is your employees email?",
-    },
-    {
-      name: "role",
-      type: "list",
-      message: "What is your employees role?",
-      choices: ["Manager", "Engineer", "Intern"],
-    },
-  ])
-  .then(function (res) {
-    switch (res.role) {
-      case "Manager":
-        addManager();
-        break;
-      case "Engineer":
-        addEngineer();
-        break;
-      case "Intern":
-        addIntern();
-        break;
-      default:
-        exitApp();
-    }
-  });
+
+function createTeam() {
+  inquirer
+    .prompt([
+      {
+        name: "role",
+        type: "list",
+        message: "What is your employees role?",
+        choices: ["Manager", "Engineer", "Intern", "Exit Application"],
+      },
+      {
+        name: "Name",
+        type: "input",
+        message: "What is your employees name?",
+      },
+      {
+        name: "Id",
+        type: "input",
+        message: "What is your employees id?",
+      },
+      {
+        name: "Email",
+        type: "input",
+        message: "What is your employees email?",
+      },
+    ])
+    .then(function (res) {
+      switch (res.role) {
+        case "Manager":
+          addManager();
+          break;
+        case "Engineer":
+          addEngineer();
+          break;
+        case "Intern":
+          addIntern();
+          break;
+        default:
+          exitApp();
+          break;
+      }
+    });
+}
+
+createTeam();
 
 function addEngineer() {
   inquirer
@@ -67,7 +73,7 @@ function addEngineer() {
       var intern = new Engineer(res.Name, res.Id, res.Email, res.github);
       teamMembers.push(intern);
       console.log(res);
-      initialPrompt();
+      createTeam();
     });
 }
 
@@ -84,7 +90,7 @@ function addManager() {
       var intern = new Manager(res.Name, res.Id, res.Email, res.officeNum);
       teamMembers.push(intern);
       console.log(res);
-      initialPrompt();
+      createTeam();
     });
 }
 
@@ -101,7 +107,7 @@ function addIntern() {
       var intern = new Intern(res.Name, res.Id, res.Email, res.school);
       teamMembers.push(intern);
       console.log(res);
-      initialPrompt();
+      createTeam();
     });
 }
 
