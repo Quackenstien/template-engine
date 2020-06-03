@@ -37,40 +37,56 @@ inquirer
       choices: ["Manager", "Engineer", "Intern"],
     },
   ])
-  .then((role) => {
-    if (role === "Engineer") {
-      prompt([
-        {
-          name: "github",
-          type: "input",
-          message: "What is your github?",
-        },
-      ]).then(console.log("works"));
-    }
-    if (role === "Intern") {
-      prompt([
-        {
-          name: "school",
-          type: "input",
-          message: "What school do you go to?",
-        },
-      ]).then();
-    }
-    if (role === "Manager") {
-      prompt([
-        {
-          name: "officeNum",
-          type: "input",
-          message: "What is your office number?",
-        },
-      ]).then();
+  .then(function (res) {
+    switch (res.role) {
+      case "Manager":
+        addManager();
+        break;
+      case "Engineer":
+        addEngineer();
+        break;
+      case "Intern":
+        addIntern();
+        break;
+      default:
+        exitApp();
     }
   });
-// }
+
+function addEngineer() {
+  inquirer.prompt([
+    {
+      name: "github",
+      type: "input",
+      message: "What is your github?",
+    },
+  ]);
+}
+
+function addManager() {
+  inquirer.prompt([
+    {
+      name: "officeNum",
+      type: "input",
+      message: "What is your office number?",
+    },
+  ]);
+}
+
+function addIntern() {
+  inquirer.prompt([
+    {
+      name: "school",
+      type: "input",
+      message: "What school do you go to?",
+    },
+  ]);
+}
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+// }
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
@@ -87,3 +103,33 @@ inquirer
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+// .then((role) => {
+//   if (`${role}` === "Engineer") {
+//     prompt([
+//       {
+//         name: "github",
+//         type: "input",
+//         message: "What is your github?",
+//       },
+//     ]).then(console.log("works"));
+//   }
+//   if (role === "Intern") {
+//     prompt([
+//       {
+// name: "school",
+// type: "input",
+// message: "What school do you go to?",
+//       },
+//     ]).then();
+//   }
+//   if (role === "Manager") {
+//     prompt([
+//       {
+// name: "officeNum",
+// type: "input",
+// message: "What is your office number?",
+//       },
+//     ]).then();
+//   }
+// });
