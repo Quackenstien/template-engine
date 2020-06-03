@@ -25,17 +25,17 @@ function createTeam() {
         choices: ["Manager", "Engineer", "Intern", "Exit Application"],
       },
       {
-        name: "Name",
+        name: "name",
         type: "input",
         message: "What is your employees name?",
       },
       {
-        name: "Id",
+        name: "id",
         type: "input",
         message: "What is your employees id?",
       },
       {
-        name: "Email",
+        name: "email",
         type: "input",
         message: "What is your employees email?",
       },
@@ -70,8 +70,8 @@ function addEngineer() {
       },
     ])
     .then(function (res) {
-      var intern = new Engineer(res.Name, res.Id, res.Email, res.github);
-      teamMembers.push(intern);
+      var engineer = new Engineer(res.name, res.id, res.email, res.github);
+      teamMembers.push(engineer);
       console.log(res);
       createTeam();
     });
@@ -87,8 +87,8 @@ function addManager() {
       },
     ])
     .then(function (res) {
-      var intern = new Manager(res.Name, res.Id, res.Email, res.officeNum);
-      teamMembers.push(intern);
+      var manager = new Manager(res.name, res.id, res.email, res.officeNum);
+      teamMembers.push(manager);
       console.log(res);
       createTeam();
     });
@@ -104,7 +104,7 @@ function addIntern() {
       },
     ])
     .then(function (res) {
-      var intern = new Intern(res.Name, res.Id, res.Email, res.school);
+      var intern = new Intern(res.name, res.id, res.email, res.school);
       teamMembers.push(intern);
       console.log(res);
       createTeam();
